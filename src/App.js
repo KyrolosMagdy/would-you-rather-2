@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
+import { connect } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import Dashboard from "./Pages/Dashboard/Dashboard.component";
+import LeaderBoard from "./Pages/LeaderBoard/LeaderBoard.component";
+import Login from "./Pages/Login/Login.component";
+import NewQuestion from "./Pages/NewQuestion/NewQuestion.component";
+import NavigationBar from "./components/NavigationBar/NavigationBar.component";
+import MainNavBar from "./components/NavBar/MainNav.component";
+import { handleInitialData } from "./redux/actions/shared";
 
-function App() {
+const App = ({ notLoggedIn, users, handleInitialData }) => {
+  useEffect(() => {
+    handleInitialData();
+  }, [handleInitialData]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <NavigationBar />
+      <MainNavBar />
+      {notLoggedIn ? (
+        <Route exact path="/" component={Login} />
+      ) : (
+        <Switch>
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/leaderboard" exact component={LeaderBoard} />
+          <Route path="/add" exact component={NewQuestion} />
+        </Switch>
+      )}
+    </Router>
   );
-}
+};
 
-export default App;
+const mapStateToProps = state => ({
+  notLoggedIn: state.authedUser.notLoggedIn,
+  users: state.users
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleInitialData: () => dispatch(handleInitialData())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
