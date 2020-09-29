@@ -71,6 +71,7 @@ const NewQuestion = ({ handleAddQuestion, history }) => {
           autoComplete="off"
           onSubmit={handleFormSubmit}
         >
+          <Typography component="h1"> Would you rather ...? </Typography>
           <TextField
             id="outlined-basic"
             label="Option One"

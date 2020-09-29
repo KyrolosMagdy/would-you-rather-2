@@ -29,7 +29,6 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
       author: authedUser
     };
     return _saveQuestion(theQuestion).then(question => {
-      console.log("debuddgin: ", question);
       dispatch(addQuestion(question));
       dispatch(addUserQuestion(authedUser, question.id));
     });
@@ -39,7 +38,7 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
 export function handleAnswer(qid, option) {
   return (dispatch, getState) => {
     const { authedUser } = getState();
-    console.log("option: ", option);
+
     const info = {
       authedUser: authedUser,
       qid,

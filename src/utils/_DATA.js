@@ -2,8 +2,7 @@ let users = {
   sarahedo: {
     id: "sarahedo",
     name: "Sarah Edo",
-    avatarURL:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.businessinsider.com%2F8-common-traits-of-highly-intelligent-people-2016-7&psig=AOvVaw0pOizT8tjcOgXRD-qilAWe&ust=1601206465465000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjB04jdhuwCFQAAAAAdAAAAABAP",
+    avatarURL: "https://i.ibb.co/Zmp879w/download.jpg",
     answers: {
       "8xf0y6ziyjabvozdd253nd": "optionOne",
       "6ni6ok3ym7mf1p33lnez": "optionTwo",
@@ -15,8 +14,7 @@ let users = {
   tylermcginnis: {
     id: "tylermcginnis",
     name: "Tyler McGinnis",
-    avatarURL:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.businessinsider.com%2F8-common-traits-of-highly-intelligent-people-2016-7&psig=AOvVaw0pOizT8tjcOgXRD-qilAWe&ust=1601206465465000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjB04jdhuwCFQAAAAAdAAAAABAP",
+    avatarURL: "https://i.ibb.co/Zmp879w/download.jpg",
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
       xj352vofupe1dqz9emx13r: "optionTwo"
@@ -26,8 +24,7 @@ let users = {
   johndoe: {
     id: "johndoe",
     name: "John Doe",
-    avatarURL:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.businessinsider.com%2F8-common-traits-of-highly-intelligent-people-2016-7&psig=AOvVaw0pOizT8tjcOgXRD-qilAWe&ust=1601206465465000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjB04jdhuwCFQAAAAAdAAAAABAP",
+    avatarURL: "https://i.ibb.co/Zmp879w/download.jpg",
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
       vthrdm985a262al8qx3do: "optionTwo",
@@ -161,7 +158,6 @@ export function _saveQuestion(question) {
   return new Promise((res, rej) => {
     const authedUser = question.author;
     const formattedQuestion = formatQuestion(question);
-    console.log("questions: ", users[authedUser.userId]);
     setTimeout(() => {
       questions = {
         ...questions,

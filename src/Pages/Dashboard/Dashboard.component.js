@@ -7,6 +7,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import QuestionDetails from "../QuestionDetails/QuestionDetails.component";
+import { withRouter } from "react-router-dom";
 
 function a11yProps(index) {
   return {
@@ -90,7 +91,8 @@ const Dashboard = ({ answeredQuestions, unansweredQuestions }) => {
   );
 };
 
-const mapStateToProps = ({ questions, users, authedUser }) => {
+const mapStateToProps = state => {
+  const { questions, users, authedUser } = state;
   const user = users[authedUser.userId];
   const answeredQuestions = Object.keys(user.answers).sort(
     (a, b) => questions[b].timestamp - questions[a].timestamp
@@ -103,4 +105,4 @@ const mapStateToProps = ({ questions, users, authedUser }) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Dashboard);
+export default withRouter(connect(mapStateToProps, null)(Dashboard));

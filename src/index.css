@@ -45,3 +45,26 @@ code {
   font-weight: bold;
   color: blueviolet;
 }
+
+.not-found__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.notFoundImage {
+  width: 30%;
+  margin-top: 3rem;
+}
+
+.not-found-title {
+  display: inline-block;
+}
+
+.text-container {
+  color: #2196f3;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}

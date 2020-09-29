@@ -13,13 +13,13 @@ export default function questions(state = {}, action) {
       };
     case ADD_QUESTION:
       const { question } = action;
-      console.log("from-reducers: ", state);
       return {
         ...state,
         [question.id]: question
       };
     case SAVE_QUESTION_ANSWER:
       const { authedUser, qid, answer } = action;
+
       return {
         ...state,
         [qid]: {

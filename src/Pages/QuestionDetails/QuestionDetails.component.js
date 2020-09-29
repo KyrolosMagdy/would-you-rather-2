@@ -1,20 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { handleAnswer } from "../../redux/actions/shared";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
 
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import Button from "@material-ui/core/Button";
+import { withRouter, Link } from "react-router-dom";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 275,
     maxWidth: "50%",
@@ -39,8 +34,25 @@ const useStyles = makeStyles({
   },
   answer: {
     color: "#2196f3"
+  },
+  avatar: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1)
+    },
+    alignItems: "center"
+  },
+  wouldQuest: {
+    margin: "1rem"
+  },
+  options: {
+    marginLeft: "1rem"
+  },
+  linkContainer: {
+    textDecoration: "none",
+    color: "black"
   }
-});
+}));
 
 const QuestionDetails = ({
   question,
@@ -51,21 +63,10 @@ const QuestionDetails = ({
   percTwo,
   authedUser,
   isAnswered,
-  handleAnswer,
-  id
+  id,
+  match
 }) => {
-  const handleChange = event => {
-    setValue(event.target.value);
-  };
-
   const classes = useStyles();
-
-  const [value, setValue] = useState("optionOne");
-
-  const handleFormSubmit = e => {
-    console.log("submitted", value);
-    handleAnswer(id, value);
-  };
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -73,6 +74,16 @@ const QuestionDetails = ({
         <div>
           {isAnswered ? (
             <div>
+              <div className={classes.avatar}>
+                <Avatar
+                  alt={questionAuthor.name}
+                  src={questionAuthor.avatarURL}
+                />
+                <Typography component="small">
+                  {" "}
+                  {questionAuthor.name}{" "}
+                </Typography>
+              </div>
               <Typography variant="body2" component="p">
                 Would You Rather ...?
               </Typography>
@@ -101,38 +112,40 @@ const QuestionDetails = ({
                   </div>
                 )}
               </Typography>
+              <Typography component="h1">
+                {" "}
+                Total number of votes: {total}
+              </Typography>
             </div>
           ) : (
-            <FormControl component="fieldset">
-              <FormLabel component="legend"> Would You Rather ...? </FormLabel>
-              <RadioGroup
-                aria-label="answer"
-                name="answer"
-                value={value}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  value="optionOne"
-                  control={<Radio />}
-                  label={question.optionOne.text}
+            <Link
+              to={`/questions/${question.id}`}
+              className={classes.linkContainer}
+            >
+              <div className={classes.avatar}>
+                <Avatar
+                  alt={questionAuthor.name}
+                  src={questionAuthor.avatarURL}
                 />
-                <FormControlLabel
-                  value="optionTwo"
-                  control={<Radio />}
-                  label={question.optionTwo.text}
-                />
-              </RadioGroup>
-              <Button
-                variant="contained"
-                href="#contained-buttons"
-                className={classes.submitButton}
-                type="submit"
-                value="Submit"
-                onClick={() => handleFormSubmit()}
-              >
-                Submit
-              </Button>
-            </FormControl>
+                <Typography component="small">
+                  {" "}
+                  {questionAuthor.name}{" "}
+                </Typography>
+              </div>
+              <Typography component="h2" className={classes.wouldQuest}>
+                Would you rather ...?
+              </Typography>
+              <div className={classes.options}>
+                <Typography component="h2">
+                  {" "}
+                  {question.optionOne.text}{" "}
+                </Typography>
+                <Typography component="h2">
+                  {" "}
+                  {question.optionTwo.text}
+                </Typography>
+              </div>
+            </Link>
           )}
         </div>
       </CardContent>
@@ -178,13 +191,4 @@ const mapStateToProps = ({ questions, users, authedUser }, { id }) => {
   };
 };
 
-function mapDispatchToProps(dispatch, props) {
-  const { id } = props;
-  return {
-    handleAnswer: (qid, answer) => {
-      dispatch(handleAnswer(id, answer));
-    }
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(QuestionDetails);
+export default withRouter(connect(mapStateToProps)(QuestionDetails));

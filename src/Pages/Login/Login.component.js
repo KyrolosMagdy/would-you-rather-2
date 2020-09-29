@@ -11,6 +11,7 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { setAuthedUser } from "../../redux/actions/authedUser";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   rootContainer: {
@@ -124,4 +125,4 @@ const mapDispatchToProps = dispatch => ({
   setAuthedUser: userId => dispatch(setAuthedUser(userId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

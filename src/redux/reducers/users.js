@@ -7,7 +7,6 @@ import {
 export default function users(state = {}, action) {
   switch (action.type) {
     case USER_ANSWER_QUESTION:
-      console.log("action auth: ", action.auth);
       return {
         ...state,
         [action.auth.userId]: {
